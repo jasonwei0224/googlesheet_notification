@@ -9,7 +9,8 @@ var actvieSpreadSheet = SpreadsheetApp.getActiveSpreadsheet();
   var requestAmountColumn = 6;
   var sentColumn = 12;
   var currentRow = 2;
-
+  var billingEmail = "";
+  var adminEmail ="";
 
 function sentEmail(e){
   
@@ -29,7 +30,7 @@ function sentEmail(e){
       var emailBodyForBilling = "The purchase request by " + email + " for " + purchaseItemDescription  +"  sold by " + vendorName + " with the amount of $" + requestAmountCAD  + " has been approved."; 
     
       MailApp.sendEmail(email, emailSubject, emailBody);  
-      MailApp.sendEmail("billing@acsea.ca", emailSubject, emailBodyForBilling );
+      MailApp.sendEmail(billingEmail, emailSubject, emailBodyForBilling );
       activeSheet.getRange(currentRow, sentColumn).setValue("Yes");
       currentRow = currentRow + 1;
   
@@ -44,7 +45,7 @@ function sentEmail(e){
       var emailBody = "Your purchase request for " + purchaseItemDescription + " has been denied. Please see Charlie to discuss the details"; 
       var emailBodyForBilling = "The purchase request by " + email + " for " + purchaseItemDescription  +"  sold by " + vendorName + " with the amount of $" + requestAmountCAD  + " has been denied.";  
       MailApp.sendEmail(email, emailSubject, emailBody);
-      MailApp.sendEmail("billing@acsea.ca", emailSubject, emailBodyForBilling);
+      MailApp.sendEmail(billingEmail, emailSubject, emailBodyForBilling);
       activeSheet.getRange(currentRow, sentColumn).setValue("Yes");
       currentRow = currentRow + 1;
       
@@ -68,6 +69,6 @@ function onFormSubmit(e) {
 
   var emailSubject = "A purchase request by " + values["Email Address"] + " with the amount of $" + values["Request Amount Before Tax"];
  
-  MailApp.sendEmail('cwu@acsea.ca', emailSubject, emailBody)
+  MailApp.sendEmail(adminEmail, emailSubject, emailBody)
 }
              
